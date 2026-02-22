@@ -1,0 +1,11 @@
+[workspace]
+members = [
+    "blog-server",
+    "blog-client",
+    "blog-cli",
+    "blog-wasm"
+]
+resolver = "2"
+
+[workspace.dependencies]
+clap = { version ="4.5", features = ["derive"] }
