@@ -1,3 +1,3 @@
 fn main() {
-    println!("cargo:warning=This is a build script warning");
+    println!("cargo:warning=This is a client build script warning");
 }

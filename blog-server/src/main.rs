@@ -1,6 +1,8 @@
-mod server;
 mod handlers;
+mod server;
 
-fn main() {
-    
+pub mod blog {
+    tonic::include_proto!("blog");
 }
+
+fn main() {}

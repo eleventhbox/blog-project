@@ -1,0 +1,111 @@
+syntax = "proto3";
+
+package blog;
+
+// Сервис аутентификации
+service AuthService {
+  rpc Register(RegisterRequest) returns (RegisterResponse);
+  rpc Login(LoginRequest) returns (LoginResponse);
+}
+
+// Сервис управления постами
+service PostService {
+  rpc CreatePost(CreatePostRequest) returns (CreatePostResponse);
+  rpc GetPost(GetPostRequest) returns (GetPostResponse);
+  rpc UpdatePost(UpdatePostRequest) returns (UpdatePostResponse);
+  rpc DeletePost(DeletePostRequest) returns (DeletePostResponse);
+  rpc ListPosts(ListPostsRequest) returns (ListPostsResponse);
+}
+
+// ================= Сообщения аутентификации =================
+
+message RegisterRequest {
+  string username = 1;
+  string email = 2;
+  string password = 3;
+}
+
+message RegisterResponse {
+  bool success = 1;
+  string message = 2;
+  int32 user_id = 3;
+}
+
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  bool success = 1;
+  string message = 2;
+  string token = 3;
+  int32 user_id = 4;
+}
+
+
+message Post {
+  int32 id = 1;
+  string title = 2;
+  string content = 3;
+  int32 author_id = 4;
+  string created_at = 5;
+  string updated_at = 6;
+}
+
+message CreatePostRequest {
+  string title = 1;
+  string content = 2;
+  string token = 3; // Для авторизации
+}
+
+message CreatePostResponse {
+  bool success = 1;
+  string message = 2;
+  Post post = 3;
+}
+
+message GetPostRequest {
+  int32 post_id = 1;
+}
+
+message GetPostResponse {
+  bool success = 1;
+  string message = 2;
+  Post post = 3;
+}
+
+message UpdatePostRequest {
+  int32 post_id = 1;
+  string title = 2;
+  string content = 3;
+  string token = 4; // Для авторизации
+}
+
+message UpdatePostResponse {
+  bool success = 1;
+  string message = 2;
+  Post post = 3;
+}
+
+message DeletePostRequest {
+  int32 post_id = 1;
+  string token = 2; // Для авторизации
+}
+
+message DeletePostResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message ListPostsRequest {
+  int32 page = 1;
+  int32 page_size = 2;
+}
+
+message ListPostsResponse {
+  bool success = 1;
+  string message = 2;
+  repeated Post posts = 3;
+  int32 total_count = 4;
+}
